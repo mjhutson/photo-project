@@ -23,10 +23,14 @@
     <None Remove="NSubstitute" />
     <None Remove="AutoFixture" />
     <None Remove="FluentAssertions" />
+    <None Remove="api-tests\ModelTests\" />
+    <None Remove="api-tests\ControllerTests\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="api-tests\" />
     <Folder Include="service-tests\" />
+    <Folder Include="api-tests\ModelTests\" />
+    <Folder Include="api-tests\ControllerTests\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\photo-project-api\photo-project-api.csproj" />

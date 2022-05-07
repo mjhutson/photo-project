@@ -1,59 +1,55 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+﻿using Autofac;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using photo_project_api.Controllers;
+using photo_project_api.Wrappers;
 using photo_project_services;
+using photo_project_services.Wrappers;
+using System;
+using System.Net.Http;
 
 namespace photo_project
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly ContainerBuilder _containerBuilder;
+        private readonly IContainer _container;
+
+        public Startup()
         {
-            Configuration = configuration;
+            _containerBuilder = new ContainerBuilder();
+            SetupContainer(_containerBuilder);
+            _container = _containerBuilder.Build();
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void SetupContainer(ContainerBuilder builder)
         {
-            services.AddControllers();
-            RegisterServices(services);
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
+            builder.Register(c => new HttpClient()
             {
-                app.UseDeveloperExceptionPage();
-            }
+                BaseAddress = new Uri(GetConfiguration()["AlbumApi:Endpoint"])
+            })
+            .Named<HttpClient>(GetConfiguration()["AlbumApi:ClientName"])
+            .SingleInstance();
+            builder.Register(c => new HttpClientWrapper(c.ResolveNamed<HttpClient>(GetConfiguration()["AlbumApi:ClientName"])))
+            .InstancePerDependency().As<IHttpClientWrapper>();
+            builder.RegisterType<DeserializationWrapper>().As<IDeserializationWrapper>();
+            builder.RegisterType<AlbumJobs>().As<IAlbumJobs>();
+            builder.RegisterType<AlbumService>().As<IAlbumService>();
+            builder.RegisterType<AlbumController>().As<IAlbumController>();
+            builder.RegisterType<ConsoleWrapper>().As<IConsoleWrapper>();
+            builder.RegisterType<UserInputService>().As<IUserInputService>();
 
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
         }
 
-        private void RegisterServices(IServiceCollection services)
+        public IConfigurationRoot GetConfiguration()
         {
-            services.AddTransient<IAlbumController, AlbumController>();
-            services.AddTransient<IAlbumService, AlbumService>();
+            return new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json")
+                .Build();
+        }
 
-            var container = services.BuildServiceProvider(true);
-
-            IServiceScope scope = container.CreateScope();
-
-           // IIngredient sauce = scope.ServiceProvider
-           //     .GetRequiredService<IIngredient>();
+        public IContainer GetContainer(){
+            return _container;
         }
     }
 }

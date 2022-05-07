@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using AutoFixture;
 using FluentAssertions;
 using NSubstitute;
@@ -28,7 +27,7 @@ namespace photo_project_tests
             _expectedAlbum = CreateAlbumWithId(_expectedAlbumId);
 
             _albumController = Substitute.For<IAlbumController>();
-            _albumController.GetById(_expectedAlbumId).Returns(_expectedAlbum);
+            _albumController.GetByIdAsync(_expectedAlbumId).Returns(_expectedAlbum);
 
             _sut = new AlbumService(_albumController);
         }
