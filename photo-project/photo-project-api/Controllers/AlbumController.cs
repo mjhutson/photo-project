@@ -4,7 +4,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using photo_project_api.Models;
 using photo_project_api.Wrappers;
-using Microsoft.AspNetCore.Mvc;
 
 
 namespace photo_project_api.Controllers
@@ -14,7 +13,7 @@ namespace photo_project_api.Controllers
         public Task<Album> GetByIdAsync(int id);
     }
 
-    public class AlbumController : Controller, IAlbumController 
+    public class AlbumController : IAlbumController 
     {
         private readonly IHttpClientWrapper _httpClient;
 

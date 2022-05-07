@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using photo_project_api.Controllers;
 using photo_project_services;
 
 namespace photo_project
@@ -17,10 +19,21 @@ namespace photo_project
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services, string baseUri)
         {
-            services.AddControllers();
-            RegisterServices(services);
+
+            services.AddHttpClient("albumClient", client =>
+            {
+                client.BaseAddress = new Uri(baseUri);
+            });
+
+            services.AddTransient<IAlbumController, AlbumController>();
+            services.AddTransient<IAlbumService, AlbumService>();
+            services.AddTransient<IUserInputService, UserInputService>();
+
+            var container = services.BuildServiceProvider(true);
+
+            IServiceScope scope = container.CreateScope();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,19 +54,6 @@ namespace photo_project
             {
                 endpoints.MapControllers();
             });
-        }
-
-        private void RegisterServices(IServiceCollection services)
-        {
-            services.AddTransient<IAlbumController, AlbumController>();
-            services.AddTransient<IAlbumService, AlbumService>();
-
-            var container = services.BuildServiceProvider(true);
-
-            IServiceScope scope = container.CreateScope();
-
-           // IIngredient sauce = scope.ServiceProvider
-           //     .GetRequiredService<IIngredient>();
         }
     }
 }

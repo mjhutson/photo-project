@@ -7,7 +7,6 @@ namespace photo_project_api.Wrappers
     {
         Task<HttpResponseMessage> GetByIdAsync(int id);
     }
-
     // Wrapper class to mock responses for the controller
     public class HttpClientWrapper : IHttpClientWrapper
     {
