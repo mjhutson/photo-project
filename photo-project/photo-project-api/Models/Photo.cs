@@ -27,11 +27,11 @@ namespace photo_project_api.Models
         {
             var stringBuilder = new StringBuilder($"Photo Id: {Id}");
             stringBuilder.Append(Environment.NewLine);
-            stringBuilder.Append(Title);
+            stringBuilder.Append($"Title: {Title}");
             stringBuilder.Append(Environment.NewLine);
-            stringBuilder.Append(Url);
+            stringBuilder.Append($"Url: {Url}");
             stringBuilder.Append(Environment.NewLine);
-            stringBuilder.Append(ThumbnailUrl);
+            stringBuilder.Append($"ThumbnailUrl: {ThumbnailUrl}");
             stringBuilder.Append(Environment.NewLine);
 
             return stringBuilder.ToString();

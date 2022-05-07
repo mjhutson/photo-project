@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Autofac.Core;
 
 namespace photo_project
 {
@@ -9,7 +8,7 @@ namespace photo_project
         {
             var startup = new Startup();
 
-            Container container = startup.GetContainer();
+            var container = startup.GetContainer();
 
             using var scope = container.BeginLifetimeScope();
             var job = scope.Resolve<IAlbumJobs>();

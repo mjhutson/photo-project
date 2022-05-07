@@ -1,6 +1,7 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using photo_project_api.Models;
+using System;
 using Xunit;
 
 namespace photo_project_tests.apitests.ModelTests
@@ -16,16 +17,36 @@ namespace photo_project_tests.apitests.ModelTests
         {
             var fixture = new Fixture();
 
+            /*_sut = new Photo
+            {
+                Id = 1,
+                AlbumId = 1,
+                Title = "test",
+                Url = "test",
+                ThumbnailUrl = "test"
+            };*/
+
             _sut = fixture.Create<Photo>();
 
             _expectedPhotoAlbumString = $"Photo Id: {_sut.Id}"
-                + $"\n{_sut.Title}"
-                + $"\n{_sut.Url}"
-                + $"\n{_sut.ThumbnailUrl}"
-                + "\n";
+                + Environment.NewLine
+                + $"Title: {_sut.Title}"
+                + Environment.NewLine
+                + $"Url: {_sut.Url}"
+                + Environment.NewLine
+                + $"ThumbnailUrl: {_sut.ThumbnailUrl}"
+                + Environment.NewLine;
 
             _expectedPhotoString = $"Album Id: {_sut.AlbumId}"
-                + $"\n{_expectedPhotoAlbumString}";
+                + Environment.NewLine
+                + $"Photo Id: {_sut.Id}"
+                + Environment.NewLine
+                + $"Title: {_sut.Title}"
+                + Environment.NewLine
+                + $"Url: {_sut.Url}"
+                + Environment.NewLine
+                + $"ThumbnailUrl: {_sut.ThumbnailUrl}"
+                + Environment.NewLine;
         }
 
         [Fact]

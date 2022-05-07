@@ -23,7 +23,7 @@ namespace photo_project_tests.servicetests
 
             _expectedId = fixture.Create<int>();
 
-            _consoleWrapper = Substitute.For<ConsoleWrapper>();
+            _consoleWrapper = Substitute.For<IConsoleWrapper>();
             _consoleWrapper.ReadLine().Returns(_expectedId.ToString());
 
             _sut = new UserInputService(_consoleWrapper);

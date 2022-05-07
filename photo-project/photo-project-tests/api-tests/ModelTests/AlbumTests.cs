@@ -1,6 +1,8 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using photo_project_api.Models;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace photo_project_tests.apitests.ModelTests
@@ -18,9 +20,11 @@ namespace photo_project_tests.apitests.ModelTests
             _sut = fixture.Create<Album>();
 
             _expectedAlbumString = $"Album Id: {_sut.Id}"
+                + Environment.NewLine
                 + CreatePhotoStrings();
 
             _expectedEmptyAlbumString = $"Album Id: {_sut.Id}"
+                + Environment.NewLine
                 + "Empty Album";
         }
 
@@ -39,13 +43,13 @@ namespace photo_project_tests.apitests.ModelTests
         [Fact]
         public void ToStringShouldReturnExpectedString()
         {
-
             _sut.ToString().Should().Be(_expectedAlbumString);
         }
 
         [Fact]
         public void ToStringShouldReturnExpectedStringForEmptyPhotoList()
         {
+            _sut.Photos = new List<Photo>();
 
             _sut.ToString().Should().Be(_expectedEmptyAlbumString);
         }

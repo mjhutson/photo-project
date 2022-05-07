@@ -14,6 +14,7 @@ namespace photo_project_tests.apitests.ControllerTests
     public class AlbumControllerTests
     {
         private readonly IHttpClientWrapper _httpClient;
+        private readonly IDeserializationWrapper _deserializer;
         private readonly int _expectedAlbumId;
         private readonly Album _expectedAlbum;
         private readonly HttpResponseMessage _expectedAlbumResponse;
@@ -24,17 +25,22 @@ namespace photo_project_tests.apitests.ControllerTests
         {
             var fixture = new Fixture();
 
-            _expectedAlbumId = fixture.Create<int>();
             _expectedAlbum = fixture.Create<Album>();
             _expectedAlbumResponse = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK
+
             };
 
-            _httpClient = Substitute.For<HttpClientWrapper>();
+            _expectedAlbumId = _expectedAlbum.Id;
+
+            _httpClient = Substitute.For<IHttpClientWrapper>();
             _httpClient.GetByIdAsync(_expectedAlbumId).Returns(_expectedAlbumResponse);
 
-            _sut = new AlbumController(_httpClient);
+            _deserializer = Substitute.For<IDeserializationWrapper>();
+            _deserializer.DeserializeJson(_expectedAlbumResponse).Returns(_expectedAlbum.Photos);
+
+            _sut = new AlbumController(_httpClient, _deserializer);
         }
 
         [Fact]
@@ -42,7 +48,7 @@ namespace photo_project_tests.apitests.ControllerTests
         {
             var actualResult = await _sut.GetByIdAsync(_expectedAlbumId);
 
-            actualResult.Should().Be(_expectedAlbum);
+            actualResult.Should().BeEquivalentTo(_expectedAlbum);
         }
 
         [Fact]
@@ -65,7 +71,7 @@ namespace photo_project_tests.apitests.ControllerTests
 
             var actualResult = await _sut.GetByIdAsync(_expectedAlbumId);
 
-            actualResult.Should().Be(new Album());
+            actualResult.Should().BeEquivalentTo(new Album());
         }
     }
 }

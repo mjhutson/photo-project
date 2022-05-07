@@ -7,6 +7,7 @@ namespace photo_project_services
     public interface IAlbumService
     {
         public Album GetAlbumById(int id);
+        public void PrintAlbum(Album album);
     }
 
     public class AlbumService : IAlbumService

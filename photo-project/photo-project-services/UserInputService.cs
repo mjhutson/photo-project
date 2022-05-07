@@ -21,7 +21,6 @@ namespace photo_project_services
 
         public int GetAlbumIdFromUser()
         {
-            var userHasEnteredValidAlbumId = false;
             var retries = 0;
 
             _consoleWrapper.PromptForInput();
@@ -38,7 +37,7 @@ namespace photo_project_services
                     retries++;
                     _consoleWrapper.PromptForValidInput();
                 }
-            } while (!userHasEnteredValidAlbumId || retries < MaxRetries);
+            } while (retries < MaxRetries);
 
             return -1;
         }

@@ -16,10 +16,12 @@ namespace photo_project_api.Controllers
     public class AlbumController : IAlbumController 
     {
         private readonly IHttpClientWrapper _httpClient;
+        private readonly IDeserializationWrapper _deserializer;
 
-        public AlbumController(IHttpClientWrapper httpClient)
+        public AlbumController(IHttpClientWrapper httpClient, IDeserializationWrapper deserializer)
         {
             _httpClient = httpClient;
+            _deserializer = deserializer;
         }
 
         public async Task<Album> GetByIdAsync(int albumId)
@@ -35,7 +37,7 @@ namespace photo_project_api.Controllers
         {
             if (httpResponseMessage.IsSuccessStatusCode)
             {
-                var photos = JsonSerializer.Deserialize<List<Photo>>(httpResponseMessage.Content.ToString());
+                var photos = _deserializer.DeserializeJson(httpResponseMessage);
 
                 return new Album
                 {
