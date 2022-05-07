@@ -11,6 +11,7 @@ namespace photo_project_services
     {
         // Constrining the user to 3 retries to prevent the potential for inf. loops
         private const int MaxRetries = 3;
+        private const int FallThroughId = 1;
 
         private readonly IConsoleWrapper _consoleWrapper;
 
@@ -35,11 +36,15 @@ namespace photo_project_services
                 else
                 {
                     retries++;
-                    _consoleWrapper.PromptForValidInput();
+                    if (retries <= MaxRetries)
+                    {
+                        _consoleWrapper.PromptForValidInput();
+                    }
                 }
-            } while (retries < MaxRetries);
+            } while (retries <= MaxRetries);
 
-            return -1;
+            //Default to first album
+            return FallThroughId;
         }
     }
 }
