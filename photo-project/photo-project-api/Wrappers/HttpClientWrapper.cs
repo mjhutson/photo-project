@@ -20,7 +20,7 @@ namespace photo_project_api.Wrappers
 
         public async Task<HttpResponseMessage> GetByIdAsync(int albumId)
         {
-            return await _client.GetAsync($"{_client.BaseAddress}?albumId={albumId}");
+            return await _client.GetAsync($"{_client.BaseAddress}/?albumId={albumId}");
         }
     }
 }
