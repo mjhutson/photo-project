@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>photo_project_tests</RootNamespace>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="coverlet.collector" Version="1.2.0" />
+    <PackageReference Include="NSubstitute" Version="4.3.0" />
+    <PackageReference Include="AutoFixture" Version="4.17.0" />
+    <PackageReference Include="FluentAssertions" Version="6.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="api-tests\" />
+    <None Remove="service-tests\" />
+    <None Remove="NSubstitute" />
+    <None Remove="AutoFixture" />
+    <None Remove="FluentAssertions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="api-tests\" />
+    <Folder Include="service-tests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\photo-project-api\photo-project-api.csproj" />
+    <ProjectReference Include="..\photo-project-services\photo-project-services.csproj" />
+  </ItemGroup>
+</Project>
