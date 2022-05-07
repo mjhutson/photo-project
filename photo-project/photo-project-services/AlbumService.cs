@@ -7,6 +7,7 @@ namespace photo_project_services
     public interface IAlbumService
     {
         public Album GetAlbumById(int id);
+    }
 
     public class AlbumService : IAlbumService
     {
@@ -19,7 +20,14 @@ namespace photo_project_services
 
         public Album GetAlbumById(int id)
         {
-            throw new NotImplementedException();
+            var albumResult = _albumController.GetByIdAsync(id);
+
+            return albumResult.Result;
+        }
+
+        public void PrintAlbum(Album album)
+        {
+            Console.WriteLine(album.ToString());
         }
     }
 }

@@ -8,4 +8,10 @@
   <ItemGroup>
     <ProjectReference Include="..\photo-project-api\photo-project-api.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Wrappers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Wrappers\" />
+  </ItemGroup>
 </Project>
