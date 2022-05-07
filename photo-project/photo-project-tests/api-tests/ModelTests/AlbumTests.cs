@@ -20,8 +20,10 @@ namespace photo_project_tests.apitests.ModelTests
             _sut = fixture.Create<Album>();
 
             _expectedAlbumString = $"Album Id: {_sut.Id}"
+                + " {"
                 + Environment.NewLine
-                + CreatePhotoStrings();
+                + CreatePhotoStrings()
+                + "}";
 
             _expectedEmptyAlbumString = $"Album Id: {_sut.Id}"
                 + Environment.NewLine

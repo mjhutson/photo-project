@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace photo_project_api.Wrappers
@@ -12,15 +13,18 @@ namespace photo_project_api.Wrappers
     {
         private readonly HttpClient _client;
 
-        public HttpClientWrapper(IHttpClientFactory clientFactory)
+        public HttpClientWrapper(HttpClient client)
         {
-            _client = clientFactory.CreateClient("albumClient");
-            
+            _client = client;
         }
 
         public async Task<HttpResponseMessage> GetByIdAsync(int albumId)
         {
-            return await _client.GetAsync($"{_client.BaseAddress}/?albumId={albumId}");
+            var uri = new Uri($"{_client.BaseAddress}/?albumId={albumId}");
+
+            var response = await _client.GetAsync(uri);
+
+            return response;
         }
     }
 }

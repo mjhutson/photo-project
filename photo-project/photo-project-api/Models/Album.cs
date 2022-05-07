@@ -13,16 +13,20 @@ namespace photo_project_api.Models
         public override string ToString()
         {
             var stringBuilder = new StringBuilder($"Album Id: {Id}");
-            stringBuilder.Append(Environment.NewLine);
             if (Photos.Any())
-            {
-                foreach(var photo in Photos)
+            { 
+                stringBuilder.Append(" {");
+                stringBuilder.Append(Environment.NewLine);
+                foreach (var photo in Photos)
                 {
                     stringBuilder.Append(photo.ToAlbumPhotoString());
                 }
+
+                stringBuilder.Append("}");
                 return stringBuilder.ToString();
             }
 
+            stringBuilder.Append(Environment.NewLine);
             stringBuilder.Append("Empty Album");
 
             return stringBuilder.ToString();

@@ -29,8 +29,7 @@ namespace photo_project_services.Wrappers
 
         public string ReadLine()
         {
-            var x = Console.ReadLine();
-            return x;
+            return Console.ReadLine();
         }
     }
 }

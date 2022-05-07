@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using System;
 
 namespace photo_project
 {
@@ -14,6 +15,8 @@ namespace photo_project
             var job = scope.Resolve<IAlbumJobs>();
 
             job.GetAlbumFromUserInput();
+
+            Console.WriteLine("Complete");
         }
     }
 }

@@ -28,7 +28,6 @@ namespace photo_project_api.Controllers
         {
             var response = await _httpClient.GetByIdAsync(albumId);
 
-
             return Deserialize(response, albumId);
             
         }
@@ -37,7 +36,7 @@ namespace photo_project_api.Controllers
         {
             if (httpResponseMessage.IsSuccessStatusCode)
             {
-                var photos = _deserializer.DeserializeJson(httpResponseMessage);
+                var photos = _deserializer.DeserializeJson(httpResponseMessage).Result;
 
                 return new Album
                 {

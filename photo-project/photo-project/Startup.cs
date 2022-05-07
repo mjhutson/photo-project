@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using photo_project_api.Controllers;
 using photo_project_api.Wrappers;
 using photo_project_services;
+using photo_project_services.Wrappers;
 using System;
 using System.Net.Http;
 
@@ -22,18 +23,21 @@ namespace photo_project
 
         public void SetupContainer(ContainerBuilder builder)
         {
-            builder.RegisterType<AlbumJobs>().As<IAlbumJobs>();
-            builder.RegisterType<AlbumService>().As<IAlbumService>();
-            builder.RegisterType<AlbumController>().As<IAlbumController>();
-            builder.RegisterType<UserInputService>().As<IUserInputService>();
-            builder.RegisterType<HttpClientWrapper>().As<IHttpClientWrapper>();
-            builder.RegisterType<DeserializationWrapper>().As<IDeserializationWrapper>();
             builder.Register(c => new HttpClient()
             {
                 BaseAddress = new Uri(GetConfiguration()["AlbumApi:Endpoint"])
             })
             .Named<HttpClient>(GetConfiguration()["AlbumApi:ClientName"])
             .SingleInstance();
+            builder.Register(c => new HttpClientWrapper(c.ResolveNamed<HttpClient>(GetConfiguration()["AlbumApi:ClientName"])))
+            .InstancePerDependency().As<IHttpClientWrapper>();
+            builder.RegisterType<DeserializationWrapper>().As<IDeserializationWrapper>();
+            builder.RegisterType<AlbumJobs>().As<IAlbumJobs>();
+            builder.RegisterType<AlbumService>().As<IAlbumService>();
+            builder.RegisterType<AlbumController>().As<IAlbumController>();
+            builder.RegisterType<ConsoleWrapper>().As<IConsoleWrapper>();
+            builder.RegisterType<UserInputService>().As<IUserInputService>();
+
         }
 
         public IConfigurationRoot GetConfiguration()
