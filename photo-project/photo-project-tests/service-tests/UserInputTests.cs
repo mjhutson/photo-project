@@ -9,7 +9,7 @@ namespace photo_project_tests.servicetests
 {
     public class UserInputTests
     {
-        private const int FallThroughId = -1;
+        private const int FallThroughId = 1;
 
         private readonly IConsoleWrapper _consoleWrapper;
 

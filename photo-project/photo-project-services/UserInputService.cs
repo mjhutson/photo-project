@@ -35,11 +35,15 @@ namespace photo_project_services
                 else
                 {
                     retries++;
-                    _consoleWrapper.PromptForValidInput();
+                    if (retries <= MaxRetries)
+                    {
+                        _consoleWrapper.PromptForValidInput();
+                    }
                 }
-            } while (retries < MaxRetries);
+            } while (retries <= MaxRetries);
 
-            return -1;
+            //Default to first album
+            return 1;
         }
     }
 }
