@@ -17,15 +17,6 @@ namespace photo_project_tests.apitests.ModelTests
         {
             var fixture = new Fixture();
 
-            /*_sut = new Photo
-            {
-                Id = 1,
-                AlbumId = 1,
-                Title = "test",
-                Url = "test",
-                ThumbnailUrl = "test"
-            };*/
-
             _sut = fixture.Create<Photo>();
 
             _expectedPhotoAlbumString = $"Photo Id: {_sut.Id}"
