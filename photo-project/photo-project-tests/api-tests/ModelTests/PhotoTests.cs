@@ -21,11 +21,11 @@ namespace photo_project_tests.apitests.ModelTests
 
             _expectedPhotoAlbumString = $"Photo Id: {_sut.Id}"
                 + Environment.NewLine
-                + $"Title: {_sut.Title}"
+                + $"\tTitle: {_sut.Title}"
                 + Environment.NewLine
-                + $"Url: {_sut.Url}"
+                + $"\tUrl: {_sut.Url}"
                 + Environment.NewLine
-                + $"ThumbnailUrl: {_sut.ThumbnailUrl}"
+                + $"\tThumbnailUrl: {_sut.ThumbnailUrl}"
                 + Environment.NewLine;
 
             _expectedPhotoString = $"Album Id: {_sut.AlbumId}"

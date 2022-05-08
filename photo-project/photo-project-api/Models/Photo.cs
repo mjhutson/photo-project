@@ -26,13 +26,16 @@ namespace photo_project_api.Models
         public string ToAlbumPhotoString()
         {
             var stringBuilder = new StringBuilder($"Photo Id: {Id}");
-            stringBuilder.Append(Environment.NewLine);
+            stringBuilder.Append(Constants.Newline);
+            stringBuilder.Append(Constants.Tab);
             stringBuilder.Append($"Title: {Title}");
-            stringBuilder.Append(Environment.NewLine);
+            stringBuilder.Append(Constants.Newline);
+            stringBuilder.Append(Constants.Tab);
             stringBuilder.Append($"Url: {Url}");
-            stringBuilder.Append(Environment.NewLine);
+            stringBuilder.Append(Constants.Newline);
+            stringBuilder.Append(Constants.Tab);
             stringBuilder.Append($"ThumbnailUrl: {ThumbnailUrl}");
-            stringBuilder.Append(Environment.NewLine);
+            stringBuilder.Append(Constants.Newline);
 
             return stringBuilder.ToString();
         }
@@ -41,7 +44,7 @@ namespace photo_project_api.Models
         public override string ToString()
         {
             var stringBuilder = new StringBuilder($"Album Id: {AlbumId}");
-            stringBuilder.Append(Environment.NewLine);
+            stringBuilder.Append(Constants.Newline);
             stringBuilder.Append(ToAlbumPhotoString());
 
             return stringBuilder.ToString();

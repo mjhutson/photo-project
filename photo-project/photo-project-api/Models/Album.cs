@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -16,7 +15,7 @@ namespace photo_project_api.Models
             if (Photos.Any())
             { 
                 stringBuilder.Append(" {");
-                stringBuilder.Append(Environment.NewLine);
+                stringBuilder.Append(Constants.Newline);
                 foreach (var photo in Photos)
                 {
                     stringBuilder.Append(photo.ToAlbumPhotoString());
@@ -26,8 +25,8 @@ namespace photo_project_api.Models
                 return stringBuilder.ToString();
             }
 
-            stringBuilder.Append(Environment.NewLine);
-            stringBuilder.Append("Empty Album");
+            stringBuilder.Append(Constants.Newline);
+            stringBuilder.Append(Constants.EmptyAlbum);
 
             return stringBuilder.ToString();
         }
