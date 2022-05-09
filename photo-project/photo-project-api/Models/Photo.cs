@@ -23,29 +23,21 @@ namespace photo_project_api.Models
 
 
         // Leaving off the Album ID for to avoid displaying a redundant ID
-        public string ToAlbumPhotoString()
+        public string ToString()
         {
-            var stringBuilder = new StringBuilder($"Photo Id: {Id}");
-            stringBuilder.Append(Environment.NewLine);
+            var stringBuilder = new StringBuilder($"{Constants.Tab}Photo Id: {Id}");
+            stringBuilder.Append(Constants.Newline);
+            stringBuilder.Append(Constants.Tab, 2);
             stringBuilder.Append($"Title: {Title}");
-            stringBuilder.Append(Environment.NewLine);
+            stringBuilder.Append(Constants.Newline);
+            stringBuilder.Append(Constants.Tab, 2);
             stringBuilder.Append($"Url: {Url}");
-            stringBuilder.Append(Environment.NewLine);
+            stringBuilder.Append(Constants.Newline);
+            stringBuilder.Append(Constants.Tab, 2);
             stringBuilder.Append($"ThumbnailUrl: {ThumbnailUrl}");
-            stringBuilder.Append(Environment.NewLine);
+            stringBuilder.Append(Constants.Newline);
 
             return stringBuilder.ToString();
         }
-
-        // Normal ToString with everything
-        public override string ToString()
-        {
-            var stringBuilder = new StringBuilder($"Album Id: {AlbumId}");
-            stringBuilder.Append(Environment.NewLine);
-            stringBuilder.Append(ToAlbumPhotoString());
-
-            return stringBuilder.ToString();
-        }
-
     }
 }
