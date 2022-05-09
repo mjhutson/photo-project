@@ -14,14 +14,12 @@ namespace photo_project_api.Models
             var stringBuilder = new StringBuilder($"Album Id: {Id}");
             if (Photos.Any())
             { 
-                stringBuilder.Append(" {");
                 stringBuilder.Append(Constants.Newline);
                 foreach (var photo in Photos)
                 {
-                    stringBuilder.Append(photo.ToAlbumPhotoString());
+                    stringBuilder.Append(photo.ToString());
                 }
 
-                stringBuilder.Append("}");
                 return stringBuilder.ToString();
             }
 

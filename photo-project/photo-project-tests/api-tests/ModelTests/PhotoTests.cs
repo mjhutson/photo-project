@@ -1,7 +1,6 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using photo_project_api.Models;
-using System;
 using Xunit;
 
 namespace photo_project_tests.apitests.ModelTests
@@ -19,38 +18,22 @@ namespace photo_project_tests.apitests.ModelTests
 
             _sut = fixture.Create<Photo>();
 
-            _expectedPhotoAlbumString = $"Photo Id: {_sut.Id}"
-                + Environment.NewLine
-                + $"\tTitle: {_sut.Title}"
-                + Environment.NewLine
-                + $"\tUrl: {_sut.Url}"
-                + Environment.NewLine
-                + $"\tThumbnailUrl: {_sut.ThumbnailUrl}"
-                + Environment.NewLine;
+            _expectedPhotoAlbumString = $"\tPhoto Id: {_sut.Id}\n"
+                + $"\t\tTitle: {_sut.Title}\n"
+                + $"\t\tUrl: {_sut.Url}\n"
+                + $"\t\tThumbnailUrl: {_sut.ThumbnailUrl}\n";
 
-            _expectedPhotoString = $"Album Id: {_sut.AlbumId}"
-                + Environment.NewLine
-                + $"Photo Id: {_sut.Id}"
-                + Environment.NewLine
-                + $"Title: {_sut.Title}"
-                + Environment.NewLine
-                + $"Url: {_sut.Url}"
-                + Environment.NewLine
-                + $"ThumbnailUrl: {_sut.ThumbnailUrl}"
-                + Environment.NewLine;
+            _expectedPhotoString = $"Album Id: {_sut.AlbumId}\n"
+                + $"Photo Id: {_sut.Id}\n"
+                + $"Title: {_sut.Title}\n"
+                + $"Url: {_sut.Url}\n"
+                + $"ThumbnailUrl: {_sut.ThumbnailUrl}\n";
         }
 
         [Fact]
-        public void ToAlbumPhotoStringShouldReturnExpectedString()
+        public void ToPhotoStringShouldReturnExpectedString()
         {
-            _sut.ToAlbumPhotoString().Should().Be(_expectedPhotoAlbumString);
-        }
-
-
-        [Fact]
-        public void ToStringShouldReturnExpectedString()
-        {
-            _sut.ToString().Should().Be(_expectedPhotoString);
+            _sut.ToString().Should().Be(_expectedPhotoAlbumString);
         }
     }
 }

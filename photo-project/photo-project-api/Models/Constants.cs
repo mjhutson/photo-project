@@ -2,8 +2,8 @@
 {
     public class Constants
     {
-        public const string Newline = "\n";
-        public const string Tab = "\t";
+        public const char Newline = '\n';
+        public const char Tab = '\t';
         public const string EmptyAlbum = "Empty Album";
     }
 }

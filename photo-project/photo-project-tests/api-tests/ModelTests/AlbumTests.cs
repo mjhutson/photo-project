@@ -20,10 +20,8 @@ namespace photo_project_tests.apitests.ModelTests
             _sut = fixture.Create<Album>();
 
             _expectedAlbumString = $"Album Id: {_sut.Id}"
-                + " {"
                 + Environment.NewLine
-                + CreatePhotoStrings()
-                + "}";
+                + CreatePhotoStrings();
 
             _expectedEmptyAlbumString = $"Album Id: {_sut.Id}"
                 + Environment.NewLine
@@ -36,7 +34,7 @@ namespace photo_project_tests.apitests.ModelTests
 
             foreach(var photo in _sut.Photos)
             {
-                photoStrings += photo.ToAlbumPhotoString();
+                photoStrings += photo.ToString();
             }
 
             return photoStrings;
